@@ -2,7 +2,7 @@
 
 ## Desktop
 <div align="center">
-<img src="https://github.com/DaroOps/proyectoWeb/blob/parte_1/storage/img/mobile.gif" align="center" style="width: 100%" />
+<img src="https://github.com/DaroOps/proyectoWeb/blob/parte_1/storage/img/desktop.gif" align="center" style="width: 100%" />
 </div>  
 
 ## Mobile
