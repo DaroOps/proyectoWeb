@@ -21,7 +21,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <i class='bx bx-menu'></i>
+        <i id="burger-ico" class='bx bx-menu'></i>
     </header>
     <section id="home" class="land">
         <main>
@@ -56,13 +56,13 @@
         <main>
             <section class="menu-head">
                 <h3>food menu</h3>
-                <h2>Fresh taste and grat price</h2>
+                <h2>Fresh taste and great price</h2>
             </section>
             <section class="menu-grid">
                 <div class="food-item">
                     <div class="food-item-close">
                         <span></span>
-                        <i class="bx bx-x"></i>
+                        <i class='bx bx-cart-add'></i>
                     </div>
                     <div class="food-item-img"><img src="./storage/img/food1.png" alt=""></div>
                     <h5>chiken burguer</h5>
@@ -72,7 +72,7 @@
                 <div class="food-item">
                     <div class="food-item-close">
                         <span></span>
-                        <i class="bx bx-x"></i>
+                        <i class='bx bx-cart-add'></i>
                     </div>
                     <div class="food-item-img"><img src="./storage/img/food2.png" alt=""></div>
                     <h5>special beef burguer</h5>
@@ -82,7 +82,7 @@
                 <div class="food-item">
                     <div class="food-item-close">
                         <span></span>
-                        <i class="bx bx-x"></i>
+                        <i class='bx bx-cart-add'></i>
                     </div>
                     <div class="food-item-img"><img src="./storage/img/food3.png" alt=""></div>
                     <h5>chiken fry pack</h5>
@@ -94,25 +94,27 @@
     </section>
     <section id="services" class="services">
         <main>
-            <h3>services</h3>
-            <h2>We provide best food services</h2>
-            <section class="service-grid">
-                <div class="service-item">
-                    <div class="service-item-img"><img src="./storage/img/s1.png" alt=""></div>
+            <section class="services-head">
+                <h3>services</h3>
+                <h2>We provide best food services</h2>
+            </section>
+            <section class="services-grid">
+                <div class="services-item">
+                    <div class="services-item-img"><img src="./storage/img/s1.png" alt=""></div>
                     <h3>Order</h3>
                     <p>It is a long established
                         be distracted by the readable
                         looking at its layout. </p>
                 </div>
-                <div class="service-item">
-                    <div class="service-item-img"><img src="./storage/img/s2.png" alt=""></div>
+                <div class="services-item">
+                    <div class="services-item-img"><img src="./storage/img/s2.png" alt=""></div>
                     <h3>Shipping</h3>
                     <p>It is a long established
                         be distracted by the readable
                         looking at its layout. </p>
                 </div>
-                <div class="service-item">
-                    <div class="service-item-img"><img src="./storage/img/s3.png" alt=""></div>
+                <div class="services-item">
+                    <div class="services-item-img"><img src="./storage/img/s3.png" alt=""></div>
                     <h3>Delivered</h3>
                     <p>It is a long established
                         be distracted by the readable
@@ -121,53 +123,55 @@
             </section>
         </main>
     </section>
-    <section id="contact" class="banner">
+    <section id="contact" class="contact">
         <main>
-            <section class="banner-item">
+            <section class="contact-item">
                 <h2> We make quality food Everyday</h2>
                 <button>learn more</button>
             </section>
         </main>
     </section>
     <footer>
-        <div class="footer-item">
-            <h3>menu Links</h3>
-            <ul>
-                <li>home</li>
-                <li>about</li>
-                <li>menu</li>
-                <li>service</li>
-                <li>contact</li>
-            </ul>
-        </div>
-        <div class="footer-item">
-            <h3>our Service</h3>
-            <ul>
-                <li>web desing</li>
-                <li>web develoment</li>
-                <li>marketing</li>
-                <li>product management</li>
-                <li>graphic desing</li>
-            </ul>
-        </div>
-        <div class="footer-item">
-            <h3>information</h3>
-            <ul>
-                <li>About us</li>
-                <li>delivery information</li>
-                <li>privacy policy</li>
-                <li>term & conditions</li>
-            </ul>
-        </div>
-        <div class="footer-media">
-            <h4>contact Us</h4>
-            <ul>
-                <li><i class="bx bxl-instagram"></i></li>
-                <li><i class="bx bxl-instagram"></i></li>
-                <li><i class="bx bxl-instagram"></i></li>
-                <li><i class="bx bxl-instagram"></i></li>
-            </ul>
-        </div>
+        <section>
+            <div class="footer-item">
+                <p>menu Links</p>
+                <ul>
+                    <li><a href="">home</a></li>
+                    <li><a href="">about</a></li>
+                    <li><a href="">menu</a></li>
+                    <li><a href="">services</a></li>
+                    <li><a href="">contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-item">
+                <p>our Service</p>
+                <ul>
+                    <li><a href="">web desing</a></li>
+                    <li><a href="">web develoment</a></li>
+                    <li><a href="">marketing</a></li>
+                    <li><a href="">product management</a></li>
+                    <li><a href="">graphic desing</a></li>
+                </ul>
+            </div>
+            <div class="footer-item">
+                <p>information</p>
+                <ul>
+                    <li><a href="">About us</a></li>
+                    <li><a href="">delivery information</a></li>
+                    <li><a href="">privacy policy</a></li>
+                    <li><a href="">term & conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer-media">
+                <p>contact Us</p>
+                <ul>
+                    <li><i class='bx bxl-instagram'></i></li>
+                    <li><i class='bx bxl-twitter' ></i></li>
+                    <li><i class='bx bxl-tiktok'></i></i></li>
+                    <li><i class='bx bxl-pinterest-alt'></i></li>
+                </ul>
+            </div>
+        </section>
     </footer>
 </body>
 
