@@ -49,6 +49,9 @@ body header ul li a {
     color: var(--color-text-light);
 }
 
+.burger-menu , .menu-toggle, .burger-ico{
+    display: none;
+}
 /* #endregion header */
 
 /* #region land */
@@ -461,6 +464,11 @@ footer section {
         text-align: center;
         overflow: hidden;
         transition: height 0.3s ease;
+    }
+    
+    .burger-ico{
+        display: block;
+ 
     }
 
     .menu-toggle {
