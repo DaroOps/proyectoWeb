@@ -7,20 +7,52 @@ let car = []
 const view = document.getElementById("view")
 
 const buttonAll = document.getElementById("all");
+const buttonCoats = document.getElementById("coats");
+const buttonShirts = document.getElementById("shirts");
+const buttonPants = document.getElementById("pants");
+const buttonCar = document.getElementById("car");
 
-buttonAll.addEventListener("click", function(event){
+buttonAll.addEventListener("click", function (event) {
     activateTabIndex(event);
     view.textContent = "Todos los productos"
+    cleanView()
     createProduct(allProducts)
+});
+
+buttonCoats.addEventListener("click", function (event) {
+    activateTabIndex(event);
+    view.textContent = "Abrigos"
+    cleanView()
+    createProduct(coats)
+});
+
+buttonShirts.addEventListener("click", function (event) {
+    activateTabIndex(event);
+    view.textContent = "Camisetas"
+    cleanView()
+    createProduct(tShirths)
+});
+
+buttonPants.addEventListener("click", function (event) {
+    activateTabIndex(event);
+    view.textContent = "Pantalones"
+    cleanView()
+    createProduct(pants)
+});
+
+buttonCar.addEventListener("click", function (event) {
+    activateTabIndex(event);
+    cleanView()
+    view.textContent = "Carrito"
 });
 
 function createProduct(data) {
     const productsContainer = document.getElementById('product-grid');
-    const fragment = document.createDocumentFragment(); 
+    const fragment = document.createDocumentFragment();
 
     data.forEach(productData => {
         const product = document.createElement('div');
-        product.classList.add('product-item'); 
+        product.classList.add('product-item');
 
         const productImg = document.createElement('div');
         productImg.classList.add('product-img');
@@ -44,7 +76,7 @@ function createProduct(data) {
         button.textContent = "Agregar";
 
         productImg.appendChild(productImgSrc);
-        productInfo.append(title, infoFoo); 
+        productInfo.append(title, infoFoo);
         infoFoo.append(price, button);
         product.append(productImg, productInfo);
         fragment.appendChild(product);
@@ -58,10 +90,10 @@ async function fetchData() {
     try {
         const response = await fetch('https://file.notion.so/f/f/eaa1771c-fc19-40d4-8527-37ca1caab8fa/8f181ea0-47f7-49a5-9b85-48db35d8ec38/Documentos_DB.json?id=a21b973c-4a2b-4e71-b3f3-1b6e38a01f05&table=block&spaceId=eaa1771c-fc19-40d4-8527-37ca1caab8fa&expirationTimestamp=1710482400000&signature=7OllRGKhZSI5MbC_vrGVSkrvHhGQUr5iLqqyM0MIJTE&downloadName=Documentos_DB.json');
         const data = await response.json();
-        
+
         for (const category in data) {
             if (data.hasOwnProperty(category)) {
-                if(category != "carrito"){
+                if (category != "carrito") {
                     data[category].forEach(item => allProducts.push(item));
                 }
 
@@ -84,7 +116,7 @@ async function fetchData() {
             }
         }
 
-        
+
 
         console.log(allProducts);
 
@@ -99,7 +131,7 @@ function activateTabIndex(event) {
     var listItem = event.target.closest('li');
 
     var listItems = document.querySelectorAll('ul > li');
-    listItems.forEach(function(item) {
+    listItems.forEach(function (item) {
         item.removeAttribute('tabindex');
     });
 
@@ -108,38 +140,45 @@ function activateTabIndex(event) {
     listItem.focus();
 }
 
+function cleanView() {
+    const products = document.querySelectorAll('.product-item');
+    products.forEach(product => {
+        product.remove();
+    });
+}
+
 const abrigo = [
     {
-      "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Azul'",
-      "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_787280-MCO51843885132_102022-F.webp",
-      "precio": 93900,
-      "id": 1
+        "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Azul'",
+        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_787280-MCO51843885132_102022-F.webp",
+        "precio": 93900,
+        "id": 1
     },
     {
-      "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Negro'",
-      "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_904140-MCO51843801912_102022-F.webp",
-      "precio": 93900,
-      "id": 2
+        "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Negro'",
+        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_904140-MCO51843801912_102022-F.webp",
+        "precio": 93900,
+        "id": 2
     },
     {
-      "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Blanco'",
-      "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_930447-MCO71410142210_092023-F.webp",
-      "precio": 93900,
-      "id": 3
+        "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Blanco'",
+        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_930447-MCO71410142210_092023-F.webp",
+        "precio": 93900,
+        "id": 3
     },
     {
-      "nombre": "Chaqueta Hombre Cuero Sintético",
-      "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_712593-MCO41606376126_052020-F.webp",
-      "precio": 102000,
-      "id": 4
+        "nombre": "Chaqueta Hombre Cuero Sintético",
+        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_712593-MCO41606376126_052020-F.webp",
+        "precio": 102000,
+        "id": 4
     },
     {
-      "nombre": "Calidad Chaqueta Hombre Algodon Colombiano Buso Ropa Buzos",
-      "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_829630-MCO31080337339_062019-F.webp",
-      "precio": 77900,
-      "id": 5
+        "nombre": "Calidad Chaqueta Hombre Algodon Colombiano Buso Ropa Buzos",
+        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_829630-MCO31080337339_062019-F.webp",
+        "precio": 77900,
+        "id": 5
     }
-  ]
+]
 
 
 
