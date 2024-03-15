@@ -67,7 +67,7 @@ a{
 
 .sidebar a {
     text-decoration: none;
-    font-size: 1.3em;
+    font-size: 1em;
     font-weight: 500;
     color: var(--color-text);
 }
@@ -102,7 +102,6 @@ a{
     gap:1.5em;
     grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));;
     grid-template-rows: auto;
-
 }
 
 .product-item {
@@ -140,19 +139,69 @@ a{
     align-items: center;
 }
 
-.info-foo button{
+/* #region fooButton */
+/* .info-foo button{
     text-align: center;
     cursor: pointer;
     padding:  .2em .5em;
-    font-size: 0.8em;
+   
     font-weight: 500;
     background-color: var(--color-secundary);
     border: .5px solid var(--color-primary);
     border-radius: 2em;
-}
+} */
+
+.add-button {
+    cursor: pointer;
+    position: relative;
+    padding:  .2em 2em;
+    display: flex;
+    justify-content: center;
+    font-size: 0.8em;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 2em;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+  }
+  
+  .add-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: inherit;
+    scale: 0;
+    z-index: -1;
+    background-color: var(--color-primary);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .add-button:hover::before {
+    scale: 3;
+  }
+  
+  .add-button:hover {
+    color: #212121;
+    scale: 1.1;
+    box-shadow: 0 0px 20px var(--color-primary);
+  }
+  
+  .add-button:active {
+    scale: 1;
+  }
+
+/* #region fooButton */
 
 .product-info p{
-    font-size: 0.8em;
+    text-align: left;
+    overflow:hidden;
+    inline-size: 100%;
+    font-size: 0.7em;
 }
 
 .product-info p::first-letter{
@@ -176,3 +225,34 @@ a{
     border-radius: 50%;
     font-size: .7em;
 }
+
+/* #region car */
+    .car-manager button{
+        text-transform:capitalize;
+        text-align: center;
+        cursor: pointer;
+        padding:  .2em .5em;
+        font-size: 0.8em;
+        font-weight: 500;
+        background-color: var(--color-secundary);
+        border: .5px solid var(--color-primary);
+        border-radius: 2em;
+    }    
+
+    .car-manager{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .car-total{
+        display: flex;
+        gap: 1em;
+    }
+
+    #nothing{
+        overflow: hidden;
+        inline-size: 20em;
+        padding: .8em;
+    }
+/* #endregion car */

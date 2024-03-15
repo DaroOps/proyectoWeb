@@ -1,10 +1,10 @@
 :root{
-  --color-primary: #299D8F;
+  --color-primary: #ffffff;
   --color-shop: #E0FCFB;
   --color-hover: #e0fcfba8;
   --text-color: black;
-  --color-secundary:#E9C46A;
-  --color-triade: #E76F51;
+  --color-secundary:#58d642;
+  --color-triade: #cfcfcf;
 }
 
 @font-face {
