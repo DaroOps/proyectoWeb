@@ -17,7 +17,7 @@ const buttonEmpty = document.getElementById("empty-car");
 
 const carSize = document.getElementById("cart-count");
 
-
+let fetcAA = "https://file.notion.so/f/f/eaa1771c-fc19-40d4-8527-37ca1caab8fa/8f181ea0-47f7-49a5-9b85-48db35d8ec38/Documentos_DB.json?id=a21b973c-4a2b-4e71-b3f3-1b6e38a01f05&table=block&spaceId=eaa1771c-fc19-40d4-8527-37ca1caab8fa&expirationTimestamp=1710597600000&signature=H4E5-BCFxw_gtPqActAr3i5A1JJxtOMqYGc3WOIyj1I&downloadName=Documentos_DB.json"
 
 
 buttonAll.addEventListener("click", function (event) {
@@ -321,7 +321,7 @@ function createProduct(data) {
 async function fetchData() {
     // console.log(allProducts);
     try {
-        const response = await fetch('https://file.notion.so/f/f/eaa1771c-fc19-40d4-8527-37ca1caab8fa/8f181ea0-47f7-49a5-9b85-48db35d8ec38/Documentos_DB.json?id=a21b973c-4a2b-4e71-b3f3-1b6e38a01f05&table=block&spaceId=eaa1771c-fc19-40d4-8527-37ca1caab8fa&expirationTimestamp=1710482400000&signature=7OllRGKhZSI5MbC_vrGVSkrvHhGQUr5iLqqyM0MIJTE&downloadName=Documentos_DB.json');
+        const response = await fetch('./storage/DBjson.json');
         const data = await response.json();
 
         for (const category in data) {
