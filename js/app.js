@@ -1,6 +1,6 @@
 let allProducts = []
 let coats = []
-let tShirths = []
+let tShirts = []
 let pants = []
 let car = []
 
@@ -13,8 +13,11 @@ const buttonCoats = document.getElementById("coats");
 const buttonShirts = document.getElementById("shirts");
 const buttonPants = document.getElementById("pants");
 const buttonCar = document.getElementById("car");
+const buttonEmpty = document.getElementById("empty-car");
 
 const carSize = document.getElementById("cart-count");
+
+
 
 
 buttonAll.addEventListener("click", function (event) {
@@ -51,7 +54,7 @@ buttonShirts.addEventListener("click", function (event) {
         document.getElementById("car-grid").id = "product-grid"
     }
     view.textContent = "Camisetas"
-    createProduct(tShirths)
+    createProduct(tShirts)
     hideElement("car-manager")
     document.getElementById("nothing") ? document.getElementById("nothing").remove() : null
 });
@@ -63,7 +66,7 @@ buttonPants.addEventListener("click", function (event) {
     if (!document.getElementById("product-grid")) {
         document.getElementById("car-grid").id = "product-grid"
     }
-   
+
     view.textContent = "Pantalones"
     createProduct(pants)
     hideElement("car-manager")
@@ -71,13 +74,12 @@ buttonPants.addEventListener("click", function (event) {
 });
 
 buttonCar.addEventListener("click", function (event) {
+    calculateTotal()
     cleanView()
-
-
     if (!document.getElementById("car-grid")) {
         document.getElementById("product-grid").id = "car-grid"
     }
-    console.log(car);
+    // console.log(car);
     createCartItem(car)
     carSize.textContent = car.length
     const empty = document.createElement("h3");
@@ -86,10 +88,10 @@ buttonCar.addEventListener("click", function (event) {
 
     activateTabIndex(event);
 
-    console.log(checkEmptynes("car-grid"));
+    // console.log(checkEmptynes("car-grid"));
 
-    if (!checkEmptynes("car-grid")) {
-        showElement("car-manager") 
+    if (checkEmptynes()) {
+        showElement("car-manager")
         document.getElementById("nothing") ? document.getElementById("nothing").remove() : null
     }
     else {
@@ -99,6 +101,21 @@ buttonCar.addEventListener("click", function (event) {
         hideElement("car-manager")
     }
     view.textContent = "Carrito"
+    
+});
+
+buttonEmpty.addEventListener("click", function () {
+    car = []
+    cleanView()
+    carSize.textContent = car.length
+    hideElement("car-manager")
+    const empty = document.createElement("h3");
+    empty.setAttribute("id", "nothing");
+    empty.textContent = "Tu carrito esta vacio :("
+    if (!document.getElementById("nothing")) {
+        productContainer.appendChild(empty)
+    }
+    calculateTotal();
 });
 
 function createCartItem(itemDataArray) {
@@ -114,21 +131,21 @@ function createCartItem(itemDataArray) {
         let productPrice = '';
 
         if (itemData.abrigoId !== undefined) {
-            const coat = coats.find(coat => coat.id === itemData.abrigoId);
+            const coat = coats.find(coat => coat.id == itemData.abrigoId);
             if (coat) {
                 productName = coat.nombre;
                 productImage = coat.imagen;
                 productPrice = coat.precio;
             }
         } else if (itemData.camisetaId !== undefined) {
-            const tShirt = tShirths.find(tShirt => tShirt.id === itemData.camisetaId);
+            const tShirt = tShirts.find(tShirt => tShirt.id == itemData.camisetaId);
             if (tShirt) {
                 productName = tShirt.nombre;
                 productImage = tShirt.imagen;
                 productPrice = tShirt.precio;
             }
         } else if (itemData.pantalonId !== undefined) {
-            const pant = pants.find(pant => pant.id === itemData.pantalonId);
+            const pant = pants.find(pant => pant.id == itemData.pantalonId);
             if (pant) {
                 productName = pant.nombre;
                 productImage = pant.imagen;
@@ -168,7 +185,7 @@ function createCartItem(itemDataArray) {
         priceTitle.textContent = 'Precio';
         const priceParagraph = document.createElement('p');
         priceParagraph.id = 'car-item-price';
-        priceParagraph.textContent = "$ "+productPrice;
+        priceParagraph.textContent = "$ " + productPrice;
         carItemPrice.appendChild(priceTitle);
         carItemPrice.appendChild(priceParagraph);
 
@@ -178,12 +195,16 @@ function createCartItem(itemDataArray) {
         subtotalTitle.textContent = 'Subtotal';
         const subtotalParagraph = document.createElement('p');
         subtotalParagraph.id = 'car-item-subtotal';
-        subtotalParagraph.textContent = "$ "+itemData.cantidad * productPrice;
+        subtotalParagraph.textContent = "$ " + itemData.cantidad * productPrice;
         carItemSubtotal.appendChild(subtotalTitle);
         carItemSubtotal.appendChild(subtotalParagraph);
 
         const trashIcon = document.createElement('i');
         trashIcon.classList.add('bx', 'bxs-trash');
+        trashIcon.id = "trash-ico"
+        trashIcon.addEventListener('click', () => {
+            removeFromCart(itemData.id);
+        });
 
         carItem.appendChild(carImg);
         carItem.appendChild(carItemName);
@@ -238,18 +259,60 @@ function createProduct(data) {
         button.textContent = "Agregar";
 
         button.addEventListener("click", function (event) {
-            console.log("click add");
-            console.log(event.target.parentNode.parentNode.parentNode);
+            const productItem = event.target.parentNode.parentNode.parentNode;
+            const productClass = Array.from(productItem.classList).find(className => className === 'camiseta' || className === 'pantalon' || className === 'chaqueta');
+            calculateTotal();
+            if (productClass) {
+                const productId = productItem.id;
+                const quantity = 1; 
+                
+                const existingItem = car.find(item => {
+                    if (productClass === 'camiseta') {
+                        return item.camisetaId === productId;
+                    } else if (productClass === 'pantalon') {
+                        return item.pantalonId === productId;
+                    } else if (productClass === 'chaqueta') {
+                        return item.abrigoId === productId;
+                    }
+                    return false;
+                });
 
-            // event.target.
+                if (existingItem) {
+                    existingItem.cantidad += quantity;
+                } else {
+                    const newItem = {
+                        id: Date.now(),
+                    };
 
+                    switch (productClass) {
+                        case 'camiseta':
+                            newItem.camisetaId = productId;
+                            break;
+                        case 'pantalon':
+                            newItem.pantalonId = productId;
+                            break;
+                        case 'chaqueta':
+                            newItem.abrigoId = productId;
+                            break;
+                    }
+
+                    newItem.cantidad = quantity;
+                    car.push(newItem);
+                    
+                }
+
+                carSize.textContent = car.length;
+            }
+            
+            console.log(car);
+            
         });
-
         productImg.appendChild(productImgSrc);
         productInfo.append(title, infoFoo);
         infoFoo.append(price, button);
         product.append(productImg, productInfo);
         fragment.appendChild(product);
+        calculateTotal();
     });
 
     productsContainer.appendChild(fragment);
@@ -272,7 +335,7 @@ async function fetchData() {
                         data[category].forEach(item => coats.push(item));
                         break;
                     case "camiseta":
-                        data[category].forEach(item => tShirths.push(item));
+                        data[category].forEach(item => tShirts.push(item));
                         break;
                     case "pantalon":
                         data[category].forEach(item => pants.push(item));
@@ -310,12 +373,8 @@ function activateTabIndex(event) {
     listItem.focus();
 }
 
-function checkEmptynes(elementId) {
-    const selected = document.getElementById(elementId);
-    const item = document.getElementById("product-item");
-    const carItem = document.getElementById("cart-item");
-
-    return selected.contains(item) || selected.contains(carItem);
+function checkEmptynes() {
+    return car.length > 0 ? true : false
 }
 
 function hideElement(elementId) {
@@ -342,5 +401,55 @@ function cleanView() {
     });
 }
 
+
+function calculateTotal() {
+    let total = 0;
+   
+    car.forEach(item => {
+        let itemPrice;
+       
+        if (item.abrigoId !== undefined) {
+            const coat = coats.find(coat => coat.id == item.abrigoId);
+            itemPrice = coat ? coat.precio : 0;
+        } else if (item.camisetaId !== undefined) {
+            const tShirt = tShirts.find(tShirt => tShirt.id == item.camisetaId);
+            itemPrice = tShirt ? tShirt.precio : 0;
+        } else if (item.pantalonId !== undefined) {
+            const pant = pants.find(pant => pant.id == item.pantalonId);
+            itemPrice = pant ? pant.precio : 0;
+        }
+
+        total += itemPrice * item.cantidad;
+    });
+
+    const totalElement = document.getElementById('total');
+    if (totalElement) {
+        totalElement.textContent = `Total: $${total.toFixed(2)}`;
+    }
+}
+
+function removeFromCart(itemId) {
+    const itemIndex = car.findIndex(item => {
+        return item.id === itemId;
+    });
+
+    if (itemIndex !== -1) {
+        car.splice(itemIndex, 1);
+        carSize.textContent = car.length;
+        calculateTotal();
+        cleanView();
+        createCartItem(car);
+    }
+
+    if(car.length < 1){
+        hideElement("car-manager")
+        const empty = document.createElement("h3");
+        empty.setAttribute("id", "nothing");
+        empty.textContent = "Tu carrito esta vacio :("
+        if (!document.getElementById("nothing")) {
+            productContainer.appendChild(empty)
+        }
+    }
+}
 
 window.onload = fetchData();
