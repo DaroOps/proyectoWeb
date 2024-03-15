@@ -19,17 +19,18 @@
         <nav class="sidebar">
             <h3>CampusShop</h3>
             <ul tabindex="1">
-                <li tabindex="1" id="all"><a id="all" href="#">Todos los productos</a></li>
-                <li tabindex="1" id="coats"><a id="coats" href="#">Abrigos</a></li>
-                <li tabindex="1" id="shirts"><a id="shirts" href="#">Camisetas</a></li>
-                <li tabindex="1" id="pants"><a id="pants" href="#">Pantalones</a></li>
-                <li tabindex="1" id="car"><a id="car" href="#">Carrito <span class="cart-count">3</span></a></li>
+                <li tabindex="1" id="all"><a id="all" href="#"><i class='bx bx-store'></i> Todos los productos</a></li>
+                <li tabindex="1" id="coats"><a id="coats" href="#"><i class='bx bx-cloud-snow'></i> Abrigos</a></li>
+                <li tabindex="1" id="shirts"><a id="shirts" href="#"><i class='bx bxs-t-shirt'></i> Camisetas</a></li>
+                <li tabindex="1" id="pants"><a id="pants" href="#"><i class='bx bx-closet'></i> Pantalones</a></li>
+                <li tabindex="1" id="car"><a id="car" href="#"><i class='bx bxs-shopping-bag'></i> Carrito <span
+                            class="cart-count" id="cart-count">0</span></a></li>
             </ul>
             <h4>© 2024 Camper</h4>
         </nav>
         <main class="main-content">
             <h2 id="view">Todos los productos</h2>
-            <div class="product-grid" id="product-grid"> 
+            <div class="product-grid" id="product-grid">
                 <!--<div class="product-item">
                     <div class="product-img"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_787280-MCO51843885132_102022-F.webp" alt=""></div>
                     <section class="product-info">
@@ -39,9 +40,20 @@
                         <button>Agregar</button>
                         </div>
                     </section>
-                </div> --> 
+                </div> -->
+
+            </div>
+            
+            <div class="car-manager" id="car-manager">
+                <button id="empty-car">vaciar carrito</button>
+                <div class="car-total">
+                    <p>Total $ 8.500</p>
+                    <button id="empty-car">comprar ahora</button>
+                </div>
             </div>
         </main>
     </section>
+
     <body>
+
 </html>
