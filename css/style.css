@@ -329,6 +329,10 @@ button {
         opacity: 0;
     }
 
+    .car-manager{
+        padding:0;
+    }
+
     #car-grid{
         text-align: center;
     }
