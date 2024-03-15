@@ -6,17 +6,21 @@ let car = []
 
 const view = document.getElementById("view")
 
+const productContainer = document.getElementById("product-grid")
+
 const buttonAll = document.getElementById("all");
 const buttonCoats = document.getElementById("coats");
 const buttonShirts = document.getElementById("shirts");
 const buttonPants = document.getElementById("pants");
 const buttonCar = document.getElementById("car");
 
+
 buttonAll.addEventListener("click", function (event) {
     activateTabIndex(event);
     view.textContent = "Todos los productos"
     cleanView()
     createProduct(allProducts)
+    document.getElementById("nothing")?document.getElementById("nothing").remove():null
 });
 
 buttonCoats.addEventListener("click", function (event) {
@@ -24,6 +28,7 @@ buttonCoats.addEventListener("click", function (event) {
     view.textContent = "Abrigos"
     cleanView()
     createProduct(coats)
+    document.getElementById("nothing")?document.getElementById("nothing").remove():null
 });
 
 buttonShirts.addEventListener("click", function (event) {
@@ -31,6 +36,7 @@ buttonShirts.addEventListener("click", function (event) {
     view.textContent = "Camisetas"
     cleanView()
     createProduct(tShirths)
+    document.getElementById("nothing")?document.getElementById("nothing").remove():null
 });
 
 buttonPants.addEventListener("click", function (event) {
@@ -38,11 +44,29 @@ buttonPants.addEventListener("click", function (event) {
     view.textContent = "Pantalones"
     cleanView()
     createProduct(pants)
+    
+    document.getElementById("nothing")?document.getElementById("nothing").remove():null
 });
 
 buttonCar.addEventListener("click", function (event) {
-    activateTabIndex(event);
     cleanView()
+    
+    const empty = document.createElement("h3");
+    empty.setAttribute("id", "nothing");
+    empty.textContent = "Tu carrito esta vacio :("
+    
+    activateTabIndex(event);
+    
+   
+    if(checkEmptynes("product-grid")){
+      
+    }
+    else{
+        if(!document.getElementById("nothing")){
+            productContainer.appendChild(empty)
+        }
+        hideElement("car-manager")
+    }
     view.textContent = "Carrito"
 });
 
@@ -53,6 +77,7 @@ function createProduct(data) {
     data.forEach(productData => {
         const product = document.createElement('div');
         product.classList.add('product-item');
+        product.id = productData.id
 
         const productImg = document.createElement('div');
         productImg.classList.add('product-img');
@@ -66,6 +91,16 @@ function createProduct(data) {
         const title = document.createElement('h3');
         title.textContent = productData.nombre;
 
+        if(productData.nombre.includes("Camiseta")){
+            product.classList.add("camiseta")
+        }
+        else if(productData.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes("pantalon")){
+            product.classList.add("pantalon")
+        }
+        else if(productData.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes("chaqueta")){
+            product.classList.add("chaqueta")
+        }
+
         const infoFoo = document.createElement('div');
         infoFoo.classList.add('info-foo');
 
@@ -73,7 +108,16 @@ function createProduct(data) {
         price.textContent = `$ ${productData.precio}`;
 
         const button = document.createElement('button');
+        button.classList.add('add-button')
         button.textContent = "Agregar";
+
+        button.addEventListener("click", function(event){
+            console.log("click add");
+            alert(event.target.parentNode.parentNode.id);
+
+            // event.target.
+           
+        }); 
 
         productImg.appendChild(productImgSrc);
         productInfo.append(title, infoFoo);
@@ -115,10 +159,8 @@ async function fetchData() {
                 }
             }
         }
-
-
-
-        console.log(allProducts);
+        createProduct(allProducts)
+        hideElement("car-manager")
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -140,47 +182,32 @@ function activateTabIndex(event) {
     listItem.focus();
 }
 
+function checkEmptynes(elementId){
+    const selected = document.getElementById(elementId);
+    const item = document.getElementById("product-item");
+    const carItem = document.getElementById("cart-item");
+    
+    return selected.contains(item);
+}   
+
+function hideElement(elementId){
+    const selected = document.getElementById(elementId);
+
+    selected.style.display= 'none';
+}
+
+function showElement(elementId){
+    const selected = document.getElementById(elementId);
+
+    selected.style.display= 'block';
+}
+
 function cleanView() {
     const products = document.querySelectorAll('.product-item');
     products.forEach(product => {
         product.remove();
     });
 }
-
-const abrigo = [
-    {
-        "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Azul'",
-        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_787280-MCO51843885132_102022-F.webp",
-        "precio": 93900,
-        "id": 1
-    },
-    {
-        "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Negro'",
-        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_904140-MCO51843801912_102022-F.webp",
-        "precio": 93900,
-        "id": 2
-    },
-    {
-        "nombre": "Chaqueta Impermeable En Gabán Para Dama 'Blanco'",
-        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_930447-MCO71410142210_092023-F.webp",
-        "precio": 93900,
-        "id": 3
-    },
-    {
-        "nombre": "Chaqueta Hombre Cuero Sintético",
-        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_712593-MCO41606376126_052020-F.webp",
-        "precio": 102000,
-        "id": 4
-    },
-    {
-        "nombre": "Calidad Chaqueta Hombre Algodon Colombiano Buso Ropa Buzos",
-        "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_829630-MCO31080337339_062019-F.webp",
-        "precio": 77900,
-        "id": 5
-    }
-]
-
-
 
 
 window.onload = fetchData();
